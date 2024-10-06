@@ -24,5 +24,6 @@
     "start": "webpack serve --open",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://sorrowfullight.github.io/calculator/"
+  "homepage": "https://yakupovrr.github.io/calculator/"
+
 }

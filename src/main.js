@@ -3,6 +3,10 @@ import './styles.css';
 // дисплей
 let display = document.querySelector('.display');
 
+// история вычислений
+let history = '';
+
+
 // массив с данными (числа и дробные знаменатели)
 let buttons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
 
@@ -58,6 +62,35 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
                 display.textContent = b;
             }
         }
+    }
+
+
+    // Обновление истории
+    if (buttons.includes(button)) {
+        if (b === '' && sign === '') {
+            if (a === "0" && button !== ".") {
+                a = '';
+            }
+            if (a.length < 10) {
+                a += button;
+                display.textContent = a;
+            }
+        } else if (a !== '' && b !== '' && finish) {
+            b = button;
+            finish = false;
+            display.textContent = b;
+        } else {
+            if (b === "0" && button !== ".") {
+                b = '';
+            }
+            if (b.length < 10) {
+                b += button;
+                display.textContent = b;
+            }
+        }
+        // Обновляем историю
+        history += button;
+        document.querySelector('.history').textContent = history;
     }
 
     // Смена знака

@@ -2,7 +2,7 @@
 
 .calculator {
     margin: 50px auto;
-    width: 300px;
+    width: 900px;
     height: 500px;
     border-radius: 20px;
     font-family: Arial, Helvetica, sans-serif;
@@ -49,6 +49,19 @@
 
 .theme-button svg:hover {
     transform: scale(1.1);
+}
+
+.history {
+    height: 30px; /* Высота строки истории */
+    margin-bottom: 5px; /* Отступ между историей и дисплеем */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 20px; /* Размер шрифта для истории */
+    color: #888; /* Цвет текста для истории */
+    overflow: hidden; /* Скрыть переполнение */
+    white-space: nowrap; /* Не переносить текст */
+    text-overflow: ellipsis; /* Добавить многоточие, если текст длинный */
 }
 
 .display {
