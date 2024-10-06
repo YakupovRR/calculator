@@ -1,11 +1,11 @@
 import './styles.css';
 
-//  дисплей
+// дисплей
 let display = document.querySelector('.display');
+let historyDisplay = document.querySelector('.history'); // Элемент для истории
 
 // история вычислений
 let history = '';
-
 
 // массив с данными (числа и дробные знаменатели)
 let buttons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
@@ -30,12 +30,14 @@ document.querySelector('.ac').addEventListener('click', () => {
     sign = '';
     finish = false;
     display.textContent = "0";
+    history = ''; // Очистка истории
+    historyDisplay.textContent = ''; // Очистка отображения истории
 });
 
 // обработчик на кнопки
 document.querySelector('.buttons').addEventListener('click', (evt) => {
     // курсор исчезает на пространстве за кнопками
-    if (!evt.target.classList.contains('button')) return;  
+    if (!evt.target.classList.contains('button')) return;
 
     // подготовка выражения с помощью конкатенации    
     let button = evt.target.textContent;
@@ -63,44 +65,46 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
                 display.textContent = b;
             }
         }
-        // Обновляем историю
-        history += button;
-        document.querySelector('.history').textContent = history;
+    }
+
+    // Обновляем историю
+    if (operators.includes(button)) {
+        if (a !== '') {
+            history += a + ' ' + button + ' '; // Добавляем к истории
+            historyDisplay.textContent = history; // Обновляем отображение истории
+            sign = button;
+            display.textContent = '0'; // Сбрасываем дисплей
+            b = ''; // Сбрасываем b для следующего числа
+        }
+        return;
     }
 
     // Смена знака
     if (evt.target.classList.contains('plus-minus')) {
         if (b !== '') {
-            b = -Number(b); 
-            display.textContent = b;  
+            b = -Number(b);
+            display.textContent = b;
         } else if (a !== '') {
-            a = -Number(a); 
-            display.textContent = a;  
-        } 
+            a = -Number(a);
+            display.textContent = a;
+        }
     }
 
     // вычисление процента
     if (evt.target.classList.contains('percentage')) {
         if (b === "" && sign === "") {
-            a = Number(a) / 100; 
-            display.textContent = a; 
+            a = Number(a) / 100;
+            display.textContent = a;
             if (String(a).length > 10) {
-                display.textContent = 'Infinity'; 
+                display.textContent = 'Infinity';
             }
         } else if (a !== "" && b !== "") {
-            b = (Number(a) * Number(b)) / 100; 
-            display.textContent = b; 
+            b = (Number(a) * Number(b)) / 100;
+            display.textContent = b;
             if (String(b).length > 10) {
-                display.textContent = 'Infinity'; 
+                display.textContent = 'Infinity';
             }
         }
-        return;
-    }
-
-    // вывод оператора на экран
-    if (operators.includes(button)) {
-        sign = button;
-        display.textContent = sign;
         return;
     }
 
@@ -116,8 +120,8 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
                 break;
             case "X":
                 a = Number(a) * Number(b);
-                break; 
-            case "/": 
+                break;
+            case "/":
                 if (b === '0') {
                     display.textContent = 'Error';
                     a = '';
@@ -128,13 +132,17 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
                 a = Number(a) / Number(b);
                 break;
         }
+        // Обновляем историю с последним значением b
+        history += b; // Добавляем последнее значение b к истории
+        historyDisplay.textContent = history; // Обновляем отображение истории
+
         // проверка вычисления на длину
         if (String(a).length <= 10) {
             finish = true;
-            display.textContent = a; 
+            display.textContent = a;
         } else {
             finish = true;
-            display.textContent = 'Infinity';    
+            display.textContent = 'Infinity';
         }
     }
 });
