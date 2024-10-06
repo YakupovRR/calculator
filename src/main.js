@@ -39,31 +39,6 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
 
     // подготовка выражения с помощью конкатенации    
     let button = evt.target.textContent;
-    
-    if (buttons.includes(button))  {  
-        if (b === '' && sign === '') {
-            if (a === "0" && button !== ".") {
-                a = '';
-            }
-            if (a.length < 10) {
-                a += button;
-                display.textContent = a;
-            }
-        } else if (a !== '' && b !== '' && finish) {
-            b = button;
-            finish = false;
-            display.textContent = b;
-        } else {
-            if (b === "0" && button !== ".") {
-                b = '';
-            }
-            if (b.length < 10) {
-                b += button;
-                display.textContent = b;
-            }
-        }
-    }
-
 
     // Обновление истории
     if (buttons.includes(button)) {
@@ -109,17 +84,16 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
         if (b === "" && sign === "") {
             a = Number(a) / 100; 
             display.textContent = a; 
-            if (String(a).length>10) {
+            if (String(a).length > 10) {
                 display.textContent = 'Infinity'; 
             }
         } else if (a !== "" && b !== "") {
             b = (Number(a) * Number(b)) / 100; 
             display.textContent = b; 
-            if (String(b).length>10) {
+            if (String(b).length > 10) {
                 display.textContent = 'Infinity'; 
             }
         }
-
         return;
     }
 
@@ -165,25 +139,3 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
     }
 });
 
-// смена темы приложения
-themeButton.addEventListener('click', ()=>{
-    content.classList.toggle('light-theme');
-    content.classList.toggle('dark-theme');
-});
-
-// удаление последней цифры
-document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Backspace') {
-        if (b !== '') {
-            b = b.slice(0, -1); // Удаляем последнюю цифру
-            display.textContent = b || '0'; // Если b пустое, показываем 0
-        } else if (sign !== '') {
-            a = a.slice(0, -1);
-            display.textContent = a || '0'; // Если a пустое, показываем 0
-        } else {
-            // Если нет оператора и b пустое, удаляем из a
-            a = a.slice(0, -1);
-            display.textContent = a || '0'; // Если a пустое, показываем 0
-        }
-    }
-});
