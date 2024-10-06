@@ -1,6 +1,6 @@
 import './styles.css';
 
-// дисплей
+//  дисплей
 let display = document.querySelector('.display');
 
 // история вычислений
