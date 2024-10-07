@@ -54,7 +54,6 @@ document.querySelector('.ac').addEventListener('click', () => {
     display.textContent = "0";
 });
 
-// обработчик на кнопки
 document.querySelector('.buttons').addEventListener('click', (evt) => {
     // курсор исчезает на пространстве за кнопками
     if (!evt.target.classList.contains('button')) return;  
@@ -67,11 +66,13 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
             if (a === "0" && button !== ".") {
                 a = '';
             }
+            // Проверка на наличие точки
+            if (button === '.' && a.includes('.')) return; 
             if (String(a).length < 10) {
                 a += button;
                 display.textContent = a;
             }
-            if (String(a).length >10) {
+            if (String(a).length > 10) {
                 a = String(a).slice(0, 10);
                 display.textContent = a;
             }
@@ -83,11 +84,13 @@ document.querySelector('.buttons').addEventListener('click', (evt) => {
             if (b === "0" && button !== ".") {
                 b = '';
             }
+            // Проверка на наличие точки
+            if (button === '.' && b.includes('.')) return; 
             if (String(b).length < 10) {
                 b += button;
                 display.textContent = b;
             }
-            if (String(b).length >10) {
+            if (String(b).length > 10) {
                 b = String(b).slice(0, 10);
                 display.textContent = b;
             }
